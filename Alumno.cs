@@ -6,14 +6,7 @@ using System.Threading.Tasks;
 
 namespace GestionCursos
 {
-    internal class Program
+    internal class Alumno
     {
-        static void Main(string[] args)
-        {
-
-
-
-
-        }
     }
 }
