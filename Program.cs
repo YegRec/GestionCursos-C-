@@ -11,14 +11,14 @@ namespace GestionCursos
         public interface IAlumno
         {
             void MostrarInformacion();
-            void ObtenerPromedio();
+            double ObtenerPromedio();
         }
 
-        public interface ICurso
+        public interface ICurso<T>
         {
-            void AgregarAlumno();
-            void EliminarAlumno();
-            void CalcularPromedioDelCurso();
+            void AgregarAlumno(T alumno);
+            void EliminarAlumno(T alumno);
+            double CalcularPromedioDelCurso();
         }
         static void Main(string[] args)
         {
