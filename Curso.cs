@@ -13,6 +13,12 @@ namespace GestionCursos
         public string Nombre { get; private set; }
         public List<T> ListaAlumnos { get; private set; } = new List<T>();
 
+        public Curso(string nombre, string profesor)
+        {
+            Nombre = nombre;
+            Profesor = profesor;
+        }
+
         public void AgregarAlumno(T alumno)
         {
             ListaAlumnos.Add(alumno);
