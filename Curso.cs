@@ -34,6 +34,16 @@ namespace GestionCursos
             return ListaAlumnos.Sum(x => x.ObtenerPromedio());
         }
 
+        //Usaremos este metodo para controlar cuando se requiera modificar la lista
+        //de alumnos, dado que la lista principal es privada no es accesible fuera de esta clase
+        //con este metodo podremos modificar la lista asignando otra lista.
+        //Este metodo sera utilizado para ordenar la lista de alumnos, recibiendo como argumento
+        //la lista ordenada y asignandola como principal.
+        public void ActualizarLista(List<T> NuevaLista)
+        {
+            ListaAlumnos = NuevaLista.ToList();
+        }
+
 
 
 
