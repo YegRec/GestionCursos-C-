@@ -86,7 +86,30 @@ namespace GestionCursos
 
             string json = JsonSerializer.Serialize(cursos, opciones);
             File.WriteAllText(rutaArchivo, json);
+
             Console.WriteLine("Archivo guardado con exito.");
+        }
+
+        public void CargarCursosJSON()
+        {
+            string rutaArchivo = Path.Combine(Path.GetTempPath(), "Cursos-Alumnos.json");
+
+            if (File.Exists(rutaArchivo))
+            {
+                var opciones = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true,
+                    TypeInfoResolver = new DefaultJsonTypeInfoResolver()
+                };
+                string json = File.ReadAllText(rutaArchivo);
+                cursos = JsonSerializer.Deserialize<List<TCurso>>(json, opciones);
+                Console.WriteLine("Cursos cargados con exito.");
+            }
+            else
+            {
+                Console.WriteLine("El arciho de carga no existe.");
+            }
+
 
         }
 
