@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using static GestionCursos.Program;
 
@@ -10,8 +11,11 @@ namespace GestionCursos
 {
     internal class Alumno : IAlumno
     {
+        [JsonInclude]
         public string Nombre { get; private set; }
+        [JsonInclude]
         public int Edad {  get; private set; }
+        [JsonInclude]
         public double Promedio { get; private set; }
 
         public Alumno(string nombre , int edad, double promedio)

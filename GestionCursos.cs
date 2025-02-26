@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using System.Text.Json.Serialization.Metadata;
 using System.Threading.Tasks;
 
 namespace GestionCursos
@@ -10,6 +14,7 @@ namespace GestionCursos
         where TCurso : Curso<Alumno>
         where TAlumno : Alumno
     {
+        [JsonInclude]
         public List<TCurso> cursos { get; private set; } = new List<TCurso>();
 
         public void AgregarCurso(TCurso curso)
@@ -64,6 +69,25 @@ namespace GestionCursos
         public void OrdenarAlumnos(TCurso curso, Func<Alumno, object> funcion)
         {
             curso.ActualizarLista(curso.ListaAlumnos.OrderBy(x => funcion(x)).ToList());
+        }
+
+        public void GuardarCursosJSON()
+        {
+            string rutaArchivo = Path.Combine(Path.GetTempPath(), "Cursos-Alumnos.json");
+
+            var opciones = new JsonSerializerOptions
+            {
+                WriteIndented = true,
+                DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+                IncludeFields = true,
+                PropertyNameCaseInsensitive = true,
+                TypeInfoResolver = new DefaultJsonTypeInfoResolver()
+            };
+
+            string json = JsonSerializer.Serialize(cursos, opciones);
+            File.WriteAllText(rutaArchivo, json);
+            Console.WriteLine("Archivo guardado con exito.");
+
         }
 
 

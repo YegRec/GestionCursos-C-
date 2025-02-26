@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using static GestionCursos.Program;
 
@@ -9,9 +10,13 @@ namespace GestionCursos
 {
     internal class Curso<T> : ICurso<T> where T : Alumno
     {
+        [JsonInclude]
         public string Profesor { get; private set; }
+        [JsonInclude]
         public string Nombre { get; private set; }
+        [JsonInclude]
         public List<T> ListaAlumnos { get; private set; } = new List<T>();
+
 
         public Curso(string nombre, string profesor)
         {
