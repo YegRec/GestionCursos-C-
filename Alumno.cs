@@ -69,8 +69,8 @@ namespace GestionCursos
         //Dependiendo del nuevo curso que seleccione el alumno.
         public void RemoverCurso(string curso)
         {
-            CursoAsignado = "";
-            Matricula = "";
+            CursoAsignado = string.Empty;
+            Matricula = string.Empty;
         }
 
         //Usaremos este metodo para controlar la asignacion de una matricula a un alumno.
