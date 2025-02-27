@@ -27,14 +27,21 @@ namespace GestionCursos
             // Buscar Alumno.
             // Eliminar alumno.
             // Mostrar todos los alumnos.
+            // Ordenar Alumnos
+            // Filtrar Alumnos
+            // Cargar estudiantes por JSON
+            // Guardar estudiantes por JSON
 
             //Interfaz 2 (CURSOS)
             // Agregar Curso.
             // Buscar Curso.
             // Eliminar curso.
             // Mostrar todos los cursos.
+            // Cargar Cursos por JSON
+            // Guardar Cursos por JSON
             
             //Interfaz 2: (Dentro de un curso)
+            // Cambiar profesor.
             // Ver alumnos del curso.
             // Inscribir alumno al curso.
             // Eliminar alumno del curso.

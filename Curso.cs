@@ -16,12 +16,17 @@ namespace GestionCursos
         public string Nombre { get; private set; }
         [JsonInclude]
         public List<T> ListaAlumnos { get; private set; } = new List<T>();
+        [JsonInclude]
+        //Usaremos este parametro para indicar un limite de alumnos que pueden
+        //inscribirse en el curso.
+        public int LimiteEstudiantes { get; private set; }
 
 
-        public Curso(string nombre, string profesor)
+        public Curso(string nombre, string profesor, int limite)
         {
             Nombre = nombre;
             Profesor = profesor;
+            LimiteEstudiantes = limite;
         }
 
         public void AgregarAlumno(T alumno)
