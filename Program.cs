@@ -22,6 +22,7 @@ namespace GestionCursos
         }
         static void Main(string[] args)
         {
+
             //Interfaz 1 (ALUMNOS):
             // Agregar alumno.
             // Buscar Alumno.

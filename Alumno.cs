@@ -5,12 +5,14 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using static GestionCursos.Program;
+using static GestionCursos.GestionAlumnos<GestionCursos.Alumno>;
 
 
 namespace GestionCursos
 {
     internal class Alumno : IAlumno
     {
+
         [JsonInclude]
         public string Nombre { get; private set; }
         [JsonInclude]
@@ -33,7 +35,7 @@ namespace GestionCursos
         {
             Nombre = nombre;
             Edad = edad;
-            Promedio = promedio;
+            Promedio = promedio;    
         } 
 
         public void MostrarInformacion()
