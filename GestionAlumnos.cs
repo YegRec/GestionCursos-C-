@@ -107,6 +107,17 @@ namespace GestionCursos
 
             alumnos.ForEach(x => criterio(x));
         }
+
+        public void GuardarDatosJSON()
+        {
+
+        }
+
+        public void CargarDatosJSON()
+        {
+
+
+        }
         
 
 
