@@ -67,7 +67,45 @@ namespace GestionCursos
 
         public void MostrarTodosAlumnos()
         {
-            alumnos.ForEach(x => x.MostrarInformacion());
+            if (alumnos.Any())
+            {
+                alumnos.ForEach(x => x.MostrarInformacion());
+                return;
+            }
+
+            throw new InvalidOperationException("No existen alumnos param mostrar");
+        }
+
+
+        //Usaremos este metodo para mostrar ordenadamente los alumnos segun el criterio
+        //que deceemos. Usaremos Func<> ya que el ejercicio pide el uso de este objeto.
+        //
+        //El metodo verifica primero que hayan objetos en la lista principal y luego
+        //las ordena segun el criterio y muestra el resultado inmediatamente.
+        //Si no hay objetos en la lista lanza una excepcion.
+        public void OrdenarAlumnos(Func<Alumno, object> criterio)
+        {
+            if (alumnos.Any())
+            {
+                var AlumnosOrdenados = alumnos.OrderBy(criterio).ToList();
+
+                AlumnosOrdenados.ForEach(x => x.MostrarInformacion());
+                return;
+            }
+
+            throw new InvalidOperationException("No existe ningun alumno para ordenar.");
+        }
+
+        //Usaremos este metodo para filtrar y buscar entre la lista de alumnos
+        //con criterios o filtros especificos.
+        public void FiltrarAlumnos(Predicate<Alumno> criterio)
+        {
+            if (!alumnos.Any())
+            {
+                throw new InvalidOperationException("No existe ningun alumno para filtrar");
+            }
+
+            alumnos.ForEach(x => criterio(x));
         }
         
 
