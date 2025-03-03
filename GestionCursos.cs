@@ -38,6 +38,26 @@ namespace GestionCursos
         }
 
 
+        public TCurso BuscarCurso(string nombre)
+        {
+            TCurso Resultado = cursos.Find(x => x.Nombre == nombre);
+
+            return Resultado;
+        }
+
+        public void MostrarTodosLosCursos()
+        {
+            if (cursos.Any())
+            {
+                cursos.ForEach(x => x.MostrarInformacion());
+                return;
+            }
+
+            throw new InvalidProgramException("No hay cursos para mostrar");
+
+        }
+
+
         //Metodo para filtrar los alumnos segun el criterio deceado.
         //El metodo recibe el curso y filtra los alumnos de ese curso segun el criterio
         //del predicate recibido.
@@ -73,7 +93,7 @@ namespace GestionCursos
 
         public void GuardarCursosJSON()
         {
-            string rutaArchivo = Path.Combine(Path.GetTempPath(), "Cursos-Alumnos.json");
+            string rutaArchivo = Path.Combine(Path.GetTempPath(), "Cursos.json");
 
             var opciones = new JsonSerializerOptions
             {
@@ -92,7 +112,7 @@ namespace GestionCursos
 
         public void CargarCursosJSON()
         {
-            string rutaArchivo = Path.Combine(Path.GetTempPath(), "Cursos-Alumnos.json");
+            string rutaArchivo = Path.Combine(Path.GetTempPath(), "Cursos.json");
 
             if (File.Exists(rutaArchivo))
             {
@@ -109,7 +129,6 @@ namespace GestionCursos
             {
                 Console.WriteLine("El arciho de carga no existe.");
             }
-
 
         }
 

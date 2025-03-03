@@ -31,7 +31,14 @@ namespace GestionCursos
 
         public void AgregarAlumno(T alumno)
         {
-            ListaAlumnos.Add(alumno);
+            if (string.IsNullOrEmpty(alumno.CursoAsignado))
+            {
+                ListaAlumnos.Add(alumno);
+                alumno.AsignarCurso(Nombre, ListaAlumnos.Count);
+                return;
+            }
+
+            throw new InvalidOperationException($"El alumno {alumno.Matricula} ya se encuentra en el curso: {alumno.CursoAsignado}");
         }
 
         public void EliminarAlumno(T alumno)
@@ -53,6 +60,48 @@ namespace GestionCursos
         {
             ListaAlumnos = NuevaLista.ToList();
         }
+
+        public void MostrarInformacion()
+        {
+            Console.WriteLine($"Nombre: {Nombre}\n" +
+                $"Profesor: {Profesor}\n" +
+                $"Estudiantes: {ListaAlumnos.Count}/{LimiteEstudiantes}\n");
+        }
+
+        public void CambiarProfesor(string profesor)
+        {
+            if (profesor == Profesor)
+            {
+                Console.WriteLine("Los nombres ingresados son identicos");
+                return;
+            }
+
+            Profesor = profesor;
+            Console.WriteLine("Nombre cambiado con exito.");
+        }
+
+        public void VerAlumnosDelCurso()
+        {
+            if (!ListaAlumnos.Any())
+            {
+                throw new InvalidOperationException("No existen alumnos en este curso");
+            }
+
+            ListaAlumnos.ForEach(x => x.MostrarInformacion());
+        }
+
+        public void ObtenerPromedioDelCurso()
+        {
+            if (ListaAlumnos.Any())
+            {
+                Console.WriteLine($"El promedio de los alumnos es: {(ListaAlumnos.Sum(x => x.Promedio) / ListaAlumnos.Count)}");
+                return;
+            }
+
+            throw new InvalidOperationException("No existen alumnos para calcular el promedio");
+            
+        }
+
 
 
 
