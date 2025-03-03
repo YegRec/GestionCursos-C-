@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.Eventing.Reader;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Text.Json.Serialization.Metadata;
 using System.Threading.Tasks;
 using System.Timers;
 using static GestionCursos.Alumno;
@@ -108,14 +111,46 @@ namespace GestionCursos
             alumnos.ForEach(x => criterio(x));
         }
 
+        //Metodos GuardarDatosJSON y CargarDatosJSON se ocuparan de guardar/cargar los alumnos desde archivos Json.
+        //Los archivos se encontraran en la carpetam temp de buscando %appdata% en el buscador de windows.
         public void GuardarDatosJSON()
         {
+            string rutaArchivo = Path.Combine(Path.GetTempPath(), "ListaAlumnos.json");
+
+            var opciones = new JsonSerializerOptions
+            {
+                WriteIndented = true,
+                DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+                IncludeFields = true,
+                PropertyNameCaseInsensitive = true,
+                TypeInfoResolver = new DefaultJsonTypeInfoResolver()
+            };
+            string json = JsonSerializer.Serialize(rutaArchivo, opciones);
+            File.WriteAllText(rutaArchivo, json);
+            Console.WriteLine("Archivo guardado con exito");
 
         }
 
         public void CargarDatosJSON()
         {
+            string rutaArchivo = Path.Combine(Path.GetTempPath(), "ListaAlumnos.json");
 
+            if (File.Exists(rutaArchivo))
+            {
+                var opciones = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true,
+                    TypeInfoResolver = new DefaultJsonTypeInfoResolver()
+                };
+
+                string json = File.ReadAllText(rutaArchivo);
+                alumnos = JsonSerializer.Deserialize<List<Alumno>>(json, opciones);
+                Console.WriteLine("El archivo fue cargado con exito.");
+            }
+            else
+            {
+                Console.WriteLine("Erro: No se encontro ningun archivo para cargar");
+            }
 
         }
         
