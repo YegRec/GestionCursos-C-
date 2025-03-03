@@ -102,6 +102,32 @@ namespace GestionCursos
             
         }
 
+        public void BuscarPromedio(string matricula)
+        {
+            Alumno Resultado = ListaAlumnos.Find(x => x.Matricula == matricula);
+
+            if (Resultado == null)
+            {
+                throw new InvalidOperationException("El estudiante no esta en este curso o la matricula esta incorrecta");
+            }
+
+            Console.WriteLine($"El promedio del estudiante {Resultado.Nombre} es: {Resultado.ObtenerPromedio()}");
+
+        }
+
+        public void AsignarPromedio(string matricula, double promedio)
+        {
+            Alumno Resultado = ListaAlumnos.Find(x => x.Matricula == matricula);
+
+            if (Resultado == null)
+            {
+                throw new InvalidOperationException("El estudiante no esta en este curso o la matricula esta incorrecta");
+            }
+
+            Resultado.AsignarPromedio(promedio);
+            Console.WriteLine("Promedio asignado con exito.");
+        }
+
 
 
 
