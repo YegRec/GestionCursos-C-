@@ -46,7 +46,7 @@ namespace GestionCursos
             // Ver alumnos del curso.
             // Inscribir alumno al curso.
             // Eliminar alumno del curso.
-            // Obtener promedio de alumnos.
+            // Obtener promedio de alumno.
             // Asignar promedio a alumno.
             // Obtener promedio de todos los alumnos.
 
