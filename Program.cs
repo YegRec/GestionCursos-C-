@@ -40,7 +40,7 @@ namespace GestionCursos
             // Mostrar todos los cursos.
             // Cargar Cursos por JSON
             // Guardar Cursos por JSON
-            
+
             //Interfaz 2: (Dentro de un curso)
             // Cambiar profesor.
             // Ver alumnos del curso.
@@ -49,6 +49,8 @@ namespace GestionCursos
             // Obtener promedio de alumno.
             // Asignar promedio a alumno.
             // Obtener promedio de todos los alumnos.
+
+            Interfaz.InterfazAlumnosBuscar(); //testing
 
 
         }
