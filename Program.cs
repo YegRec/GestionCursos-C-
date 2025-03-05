@@ -50,9 +50,6 @@ namespace GestionCursos
             // Asignar promedio a alumno.
             // Obtener promedio de todos los alumnos.
 
-            Interfaz.InterfazAlumnosBuscar(); //testing
-
-
         }
     }
 }

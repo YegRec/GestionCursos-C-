@@ -31,18 +31,20 @@ namespace GestionCursos
         public string Matricula { get; private set; }
 
 
-        public Alumno(string nombre , int edad, double promedio)
+        public Alumno(string nombre , int edad)
         {
             Nombre = nombre;
             Edad = edad;
-            Promedio = promedio;    
+            Promedio = 0;    
         } 
 
         public void MostrarInformacion()
         {
             Console.WriteLine($"\nNombre: {Nombre}\n" +
                 $"Edad: {Edad}\n" +
-                $"Promedio: {Promedio}");
+                $"Promedio: {Promedio}\n" +
+                $"Matricula: {Matricula}\n" +
+                $"Curso: {CursoAsignado}\n");
         }
 
         public double ObtenerPromedio()

@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static GestionCursos.GestionAlumnos<GestionCursos.Alumno>;
 
 namespace GestionCursos
 {
     internal static class Interfaz
     {
         private static string Version = "1.0";
-        public static void MainMenu()
+        private static void MainMenu()
         {
             Console.Clear();
             Console.WriteLine($"GESTION DE CURSOS Y ALUMNOS {Version}\n\n\n" +
@@ -19,7 +20,7 @@ namespace GestionCursos
                 "3. [Salir] (Cerrar programa)\n");
         }
 
-        public static void InterfazAlumnos()
+        private static void InterfazAlumnos()
         {
             Console.Clear();
             Console.WriteLine($"GESTION DE ALUMNOS\n\n\n" +
@@ -35,7 +36,30 @@ namespace GestionCursos
                 $"9. [Salir] Volver al menu principal\n");
         }
 
-        public static void InterfazAlumnosBuscar()
+        private static void InterfazCrearAlummo(GestionAlumnos<Alumno> GestionadorDeAlumnos)
+        {
+            Console.Clear();
+            Console.WriteLine("Por favor, ingresa el nombre del estudiante\n");
+            string nombre = Validaciones.ValidarNombre(Console.ReadLine());
+
+            Console.Clear();
+            Console.WriteLine($"Por favor, ingresa la edad del estudiante {nombre}");
+            int edad = Validaciones.ValidarInt(Console.ReadLine(), 100);
+
+            if (GestionadorDeAlumnos.alumnos.Exists(x => x.Nombre == nombre) && GestionadorDeAlumnos.alumnos.Exists(x => x.Edad == edad))
+            {
+                throw new InvalidOperationException("El alumno ingresado ya esta registrado");
+            }
+
+            Alumno NuevoAlumno = new Alumno(nombre, edad);
+
+            GestionadorDeAlumnos.AgregarAlumno(NuevoAlumno);
+            Console.Clear();
+            Console.WriteLine("Alumno creado con exito\n");
+            NuevoAlumno.MostrarInformacion();
+        }
+
+        private static void InterfazAlumnosBuscar()
         {
             Console.Clear();
             Console.WriteLine("GESTION DE ALUMNOS\n\n\n" +
@@ -45,7 +69,7 @@ namespace GestionCursos
                 "3. [Salir] Volver al menu de alumnos\n");
         }
 
-        public static void InterfazCursos()
+        private static void InterfazCursos()
         {
             Console.Clear();
             Console.WriteLine($"GESTION DE CURSOS\n\n\n" +
@@ -59,18 +83,33 @@ namespace GestionCursos
                 $"7. [Salir] Volver al menu principal\n");
         }
 
-        public static void InterfazCursosBuscar()
+        public static void InterfazCrearCurso(GestionCursos<Curso<Alumno>, Alumno> GestionadorDeCursos)
         {
-            
+            Console.Clear();
 
-            //Interfaz 2: (Dentro de un curso)
-            // Cambiar profesor.
-            // Ver alumnos del curso.
-            // Inscribir alumno al curso.
-            // Eliminar alumno del curso.
-            // Obtener promedio de alumno.
-            // Asignar promedio a alumno.
-            // Obtener promedio de todos los alumnos.
+        }
+
+        private static void InterfazCursosBuscar()
+        {
+            Console.WriteLine($"GESTION DE CURSOS\n\n\n" +
+                $"Por favor, selecciona una opcion:\n\n" +
+                $"1. Cambiar profesor\n" +
+                $"2. Ver alumnos del curso\n" +
+                $"3. Inscribir alumno al curso\n" +
+                $"4. Eliminar alumnos del curso\n" +
+                $"5. Obtener promedio de alumno\n" +
+                $"6. Asignar promedio a alumno\n" +
+                $"7. Obtener promedio de todos los alumnos\n" +
+                $"8. [Salir] menu de cursos");            
+
+        }
+
+
+        //DESDE AQUI INICIA LA IMPLEMENTACION DE LA INTERFAZ FUNCIONAL
+
+        public static void Inicio()
+        {
+
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace GestionCursos
@@ -18,12 +19,34 @@ namespace GestionCursos
         //
         public static string ValidarString(string texto)
         {
-            if (string.IsNullOrEmpty(texto))
+            if (string.IsNullOrWhiteSpace(texto))
             {
                 throw new ArgumentNullException("El texto ingresado es nulo o invalido");
             }
 
             return texto;
+        }
+
+        //USaremos este metodo para validar la entrada de nombres por parte del usuario
+        //el metodo recibe un texto que sera el input del usuario y luego valida si no esta vacio o nullo
+        //luego verifica usando un patron y un regex que el texto ingresado corresponga a un nombre y un apellido
+        //de al menos 4 caracteres o mas cada uno y que no se permitan caracteres especiales como comillas, comas
+        //o guiones.
+        public static string ValidarNombre(string texto)
+        {
+            if (string.IsNullOrWhiteSpace(texto))
+            {
+                throw new ArgumentNullException("El nombre ingresado es nulo o invalido");
+            }
+
+            string patron = @"^([A-Za-zÁÉÍÓÚáéíóúÑñ]+(?:[-'][A-Za-zÁÉÍÓÚáéíóúÑñ]+)?)(\s[A-Za-zÁÉÍÓÚáéíóúÑñ]+(?:[-'][A-Za-zÁÉÍÓÚáéíóúÑñ]+)?)+$";
+
+            if (!Regex.IsMatch(texto.Trim(), patron))
+            {
+                throw new ArgumentNullException("El texto ingresado debe contener un nombre y un apellido");
+            }
+
+            return texto.Trim();
         }
 
 
@@ -33,7 +56,7 @@ namespace GestionCursos
         //por ende el input es valido.
         public static string ValidarString(string texto, int largo)
         {
-            if (string.IsNullOrEmpty(texto) || texto.Length > largo)
+            if (string.IsNullOrWhiteSpace(texto) || texto.Length > largo)
             {
                 throw new ArgumentNullException("El texto ingresado es nulo o invalido");
             }
@@ -45,7 +68,7 @@ namespace GestionCursos
         //en caso contrario lanzara una excepcion.
         public static int ValidarInt(string numero)
         {
-            if (string.IsNullOrEmpty(numero) || !int.TryParse(numero, out int num))
+            if (string.IsNullOrWhiteSpace(numero) || !int.TryParse(numero, out int num))
             {
                 throw new ArgumentException("El numero ingresado es nulo o invalido");
             }
@@ -57,7 +80,7 @@ namespace GestionCursos
         //recibido no sea mayor al segundo valor "largo"
         public static int ValidarInt(string numero, int largo)
         {
-            if (string.IsNullOrEmpty(numero) || !int.TryParse(numero, out int num) || int.Parse(numero) > largo)
+            if (string.IsNullOrWhiteSpace(numero) || !int.TryParse(numero, out int num) || int.Parse(numero) > largo)
             {
                 throw new ArgumentException("El numero ingresado es nulo o invalido");
             }
@@ -67,7 +90,7 @@ namespace GestionCursos
 
         public static double ValidarDouble(string numero)
         {
-            if (string.IsNullOrEmpty(numero) || !double.TryParse(numero, out double num))
+            if (string.IsNullOrWhiteSpace(numero) || !double.TryParse(numero, out double num))
             {
                 throw new ArgumentException("El numero ingresado es nulo o invalido");
             }
@@ -78,7 +101,7 @@ namespace GestionCursos
 
         public static double ValidarDouble(string numero, double largo)
         {
-            if (string.IsNullOrEmpty(numero) || !double.TryParse(numero, out double num) || double.Parse(numero) > largo)
+            if (string.IsNullOrWhiteSpace(numero) || !double.TryParse(numero, out double num) || double.Parse(numero) > largo)
             {
                 throw new ArgumentException("El numero ingresado es nulo o invalido");
             }
