@@ -50,6 +50,11 @@ namespace GestionCursos
             // Asignar promedio a alumno.
             // Obtener promedio de todos los alumnos.
 
+            GestionAlumnos<Alumno> Alumnos = new GestionAlumnos<Alumno>();
+            GestionCursos<Curso<Alumno>, Alumno> Cursos = new GestionCursos<Curso<Alumno>, Alumno>();
+
+            Interfaz.Inicio(Alumnos, Cursos);
+
         }
     }
 }
