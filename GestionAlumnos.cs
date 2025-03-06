@@ -53,7 +53,22 @@ namespace GestionCursos
             }
         }
 
-        public void EliminarAlumno(string matricula)
+        public void EliminarAlumnoPorNombre(string nombre)
+        {
+            Alumno resultado = alumnos.FirstOrDefault(x => x.Nombre.ToUpper() == nombre.ToUpper());
+
+            if (resultado == null)
+            {
+                throw new NullReferenceException($"El alumno {nombre.ToUpper()} no existe");
+            }
+            else
+            {
+                alumnos.Remove(resultado);
+                Console.WriteLine($"El alumno ha sido eliminado");
+            }
+        }
+
+        public void EliminarAlumnoPorMatricula(string matricula)
         {
             Alumno resultado = alumnos.FirstOrDefault(x => x.Matricula.ToUpper() == matricula.ToUpper());
 

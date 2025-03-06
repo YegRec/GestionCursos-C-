@@ -48,6 +48,8 @@ namespace GestionCursos
                         Interfaz.InterfazAlumnosBuscar(GestionadorAlumnos);
                         break;
                     case 3:
+                        Interfaz.InterfazAlumnoEliminar(GestionadorAlumnos);
+                        break;
                         
                     default:
                         break;
@@ -131,19 +133,81 @@ namespace GestionCursos
             while (true)
             {
                 Console.Clear();
-                Console.WriteLine("Por favor, ingresa la matricula del alumno a eliminar");
-                string matricula = Validaciones.ValidarString(Console.ReadLine());
-                
-                if (!GestionadorAlumnos.alumnos.Exists(x => x.Matricula == matricula))
+                Console.WriteLine("GESTION DE ALUMNOS\n\n\n" +
+                    "Por favor, selecciona una opcion\n\n" +
+                    "1. Eliminar Alumno por nombre\n" +
+                    "2. Eliminar Alumno por matricula\n" +
+                    "3. [Salir] Volver al menu de alumnos\n");
+
+                int seleccion = Validaciones.ValidarInt(Console.ReadLine());
+
+                switch(seleccion)
                 {
-                    throw new ArgumentNullException($"El estudiante con la matricula {matricula} no existe");
+                    case 1:
+                        Console.Clear();
+                        Console.WriteLine("Por favor, ingresa el nombre del alumno a eliminar");
+                        string nombre = Validaciones.ValidarNombre(Console.ReadLine());
+
+                        if (!GestionadorAlumnos.alumnos.Exists(x => x.Nombre.ToLower() == nombre.ToLower()))
+                        {
+                            throw new ArgumentNullException($"El estudiante {nombre} no existe");
+                        }
+
+                        Console.WriteLine("Alumno encontrado\n");
+                        GestionadorAlumnos.alumnos.Find(x => x.Nombre.ToLower() == nombre.ToLower()).MostrarInformacion();
+
+                        Console.WriteLine("Seguro deceas eliminar este alumno? (Y/N)");
+                        string opcion = Validaciones.ValidarString(Console.ReadLine(), 1);
+                        switch (opcion.ToUpper())
+                        {
+                            case "Y":
+                                GestionadorAlumnos.EliminarAlumnoPorNombre(nombre);
+                                break;
+                            case "N":
+                                Console.WriteLine("Cancelando operacion...");
+                                break;
+                            default:
+                                Console.WriteLine("Seleccion incorrecta. Cancelando operacion.");
+                                break;
+                        }
+                        break;
+                    case 2:
+                        Console.Clear();
+                        Console.WriteLine("Por favor, ingresa la matricula del alumno a eliminar");
+                        string matricula = Validaciones.ValidarString(Console.ReadLine());
+
+                        if (!GestionadorAlumnos.alumnos.Exists(x => x.Matricula.ToUpper() == matricula.ToUpper()))
+                        {
+                            throw new ArgumentNullException($"El estudiante con la matricula {matricula.ToUpper()} no existe");
+                        }
+
+                        Console.WriteLine("Alumno encontrado:\n");
+                        GestionadorAlumnos.alumnos.Find(x => x.Matricula.ToUpper() == matricula.ToUpper()).MostrarInformacion();
+
+                        Console.WriteLine("\nSeguro deceas eliminar este alumno? (Y/N)");
+                        string opcion2 = Validaciones.ValidarString(Console.ReadLine(), 1);
+                        switch (opcion2.ToUpper())
+                        {
+                            case "Y":
+                                GestionadorAlumnos.EliminarAlumnoPorMatricula(matricula);
+                                break;
+                            case "N":
+                                Console.WriteLine("Cancelando operacion...");
+                                break;
+                            default:
+                                Console.WriteLine("Seleccion incorrecta. Cancelando operacion.");
+                                break;
+                        }
+                        break;
+                        case 3:
+                        break;
+                }
+                if (seleccion == 3)
+                {
+                    break;
                 }
 
-                Console.WriteLine("Alumno encontrado:\n");
-                GestionadorAlumnos.alumnos.Find(x => x.Matricula == matricula).MostrarInformacion();
-                Console.WriteLine("Seguro deceas eliminar este alumno?");
-
-
+                Interfaz.Esperar();
             }
         }
 
