@@ -47,6 +47,8 @@ namespace GestionCursos
                     case 2:
                         Interfaz.InterfazAlumnosBuscar(GestionadorAlumnos);
                         break;
+                    case 3:
+                        
                     default:
                         break;
                 }
@@ -124,6 +126,27 @@ namespace GestionCursos
 
         }
 
+        private static void InterfazAlumnoEliminar(GestionAlumnos<Alumno> GestionadorAlumnos)
+        {
+            while (true)
+            {
+                Console.Clear();
+                Console.WriteLine("Por favor, ingresa la matricula del alumno a eliminar");
+                string matricula = Validaciones.ValidarString(Console.ReadLine());
+                
+                if (!GestionadorAlumnos.alumnos.Exists(x => x.Matricula == matricula))
+                {
+                    throw new ArgumentNullException($"El estudiante con la matricula {matricula} no existe");
+                }
+
+                Console.WriteLine("Alumno encontrado:\n");
+                GestionadorAlumnos.alumnos.Find(x => x.Matricula == matricula).MostrarInformacion();
+                Console.WriteLine("Seguro deceas eliminar este alumno?");
+
+
+            }
+        }
+
         private static void InterfazCursos()
         {
             Console.Clear();
@@ -171,7 +194,7 @@ namespace GestionCursos
                 $"1. Cambiar profesor\n" +
                 $"2. Ver alumnos del curso\n" +
                 $"3. Inscribir alumno al curso\n" +
-                $"4. Eliminar alumnos del curso\n" +
+                $"4. Eliminar alumno del curso\n" +
                 $"5. Obtener promedio de alumno\n" +
                 $"6. Asignar promedio a alumno\n" +
                 $"7. Obtener promedio de todos los alumnos\n" +
