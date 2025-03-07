@@ -123,7 +123,7 @@ namespace GestionCursos
                 throw new InvalidOperationException("No existe ningun alumno para filtrar");
             }
 
-            alumnos.ForEach(x => criterio(x));
+            alumnos.ForEach(x => { if (criterio(x)) x.MostrarInformacion(); });
         }
 
         //Metodos GuardarDatosJSON y CargarDatosJSON se ocuparan de guardar/cargar los alumnos desde archivos Json.
@@ -140,7 +140,7 @@ namespace GestionCursos
                 PropertyNameCaseInsensitive = true,
                 TypeInfoResolver = new DefaultJsonTypeInfoResolver()
             };
-            string json = JsonSerializer.Serialize(rutaArchivo, opciones);
+            string json = JsonSerializer.Serialize(alumnos, opciones);
             File.WriteAllText(rutaArchivo, json);
             Console.WriteLine("Archivo guardado con exito");
 
@@ -164,7 +164,7 @@ namespace GestionCursos
             }
             else
             {
-                Console.WriteLine("Erro: No se encontro ningun archivo para cargar");
+                Console.WriteLine("Error: No se encontro ningun archivo para cargar");
             }
 
         }

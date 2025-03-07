@@ -77,6 +77,15 @@ namespace GestionCursos
                             throw new InvalidOperationException("No existen alumnos para filtrar");
                         }
 
+                        Interfaz.InterfazFiltrarAlumnos(GestionadorAlumnos);
+                        break;
+                    case 7:
+                        GestionadorAlumnos.CargarDatosJSON();
+                        Interfaz.Esperar();
+                        break;
+                    case 8:
+                        GestionadorAlumnos.GuardarDatosJSON();
+                        Interfaz.Esperar();
                         break;
 
                     default:
@@ -298,8 +307,24 @@ namespace GestionCursos
                 switch(seleccion)
                 {
                     case 1:
+                        Console.Clear();
+                        Console.WriteLine("Ingresa la edad a filtrar (mayor que)");
+                        int readResult = Validaciones.ValidarInt(Console.ReadLine());
+                        GestionadorAlumnos.FiltrarAlumnos(x => x.Edad > readResult);
+                        Interfaz.Esperar();
                         break;
-                        
+                    case 2:
+                        Console.Clear();
+                        Console.WriteLine("Ingresa el promedio a filtrar (menor que) (valor maximo: 10)");
+                        int readResult2 = Validaciones.ValidarInt(Console.ReadLine(), 10);
+                        GestionadorAlumnos.FiltrarAlumnos(x => x.Promedio < readResult2);
+                        Interfaz.Esperar();
+                        break;                        
+                }
+
+                if (seleccion == 3)
+                {
+                    break;
                 }
             }
         }
