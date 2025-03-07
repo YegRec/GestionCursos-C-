@@ -11,6 +11,8 @@ namespace GestionCursos
     internal static class Interfaz
     {
         private static string Version = "1.0";
+
+        //Interfaz menu principal.
         private static void MainMenu()
         {
             Console.Clear();
@@ -21,6 +23,10 @@ namespace GestionCursos
                 "3. [Salir] (Cerrar programa)\n");
         }
 
+
+        //Esta interfaz maneja todas las interacciones relacionadas con los alumnos.
+        //Agregar, eliminar, etc. Recibe como parametro un Gestionador de Alumnos
+        //El cual se usara como base para trabajar sobre el.
         private static void InterfazAlumnos(GestionAlumnos<Alumno> GestionadorAlumnos)
         {
             while (true)
@@ -100,6 +106,14 @@ namespace GestionCursos
 
         }
 
+        //Metodo de interfaz encargado de crear un alumno.
+        //Pide al usuario los parametros necesarios para la creacion del alumno: edad y nombre con apellido.
+        //usando la clase Validaciones y sus metodos procesamos la informacion solicitada al usuario
+        //y confirmamos que todo este correcto antes de proceder con la creacion del alumno
+        //Tambien se hace una ultima verificacion y es comprobar si el alumnos que se esta creando
+        //no este previamente agregado en la lista de alumnos.
+        //
+        //El metodo recibe un GestionadorDeAlumnos como base y como lista de alumnos.
         private static void InterfazCrearAlummo(GestionAlumnos<Alumno> GestionadorDeAlumnos)
         {
             Console.Clear();
@@ -124,6 +138,11 @@ namespace GestionCursos
             Interfaz.Esperar();
         }
 
+        //Metodo de interfaz para buscar alumnos.
+        //
+        //Da la opcion al usuario de elegir si decea buscar un alumno
+        //por nombre o matricula
+        //OJO: Un alumno no adquiere una matricula hasta ser asignado a un curso.
         private static void InterfazAlumnosBuscar(GestionAlumnos<Alumno> GestionadorAlumnos)
         {
             while (true)
@@ -164,7 +183,9 @@ namespace GestionCursos
             }
 
         }
-
+        //Metodo para eliminar un alumnos de la lista.
+        //Da la posibilidad al usuario de eliminar un alumno de la lista
+        //principal de alumnos.
         private static void InterfazAlumnoEliminar(GestionAlumnos<Alumno> GestionadorAlumnos)
         {
             while (true)
@@ -176,23 +197,26 @@ namespace GestionCursos
                     "2. Eliminar Alumno por matricula\n" +
                     "3. [Salir] Volver al menu de alumnos\n");
 
-                int seleccion = Validaciones.ValidarInt(Console.ReadLine());
+                int seleccion = Validaciones.ValidarInt(Console.ReadLine()); // Valor usado para la seleccion
 
                 switch(seleccion)
                 {
                     case 1:
                         Console.Clear();
                         Console.WriteLine("Por favor, ingresa el nombre del alumno a eliminar");
-                        string nombre = Validaciones.ValidarNombre(Console.ReadLine());
+                        string nombre = Validaciones.ValidarNombre(Console.ReadLine()); //Solicita y verifica el input del usuario.
 
-                        if (!GestionadorAlumnos.alumnos.Exists(x => x.Nombre.ToLower() == nombre.ToLower()))
+                        if (!GestionadorAlumnos.alumnos.Exists(x => x.Nombre.ToLower() == nombre.ToLower()))//Verifica que el alumno existe.
                         {
-                            throw new ArgumentNullException($"El estudiante {nombre} no existe");
+                            throw new ArgumentNullException($"El estudiante {nombre} no existe");//Lanza si el alumno no existe
                         }
 
                         Console.WriteLine("Alumno encontrado\n");
-                        GestionadorAlumnos.alumnos.Find(x => x.Nombre.ToLower() == nombre.ToLower()).MostrarInformacion();
+                        GestionadorAlumnos.alumnos.Find(x => x.Nombre.ToLower() == nombre.ToLower()).MostrarInformacion();//Se muestra el alumno
 
+
+                        //Se procede a confirmar al usuario si decea eliminar el alumno.
+                        //Si el usuario ingresa un valor incorrecto o invalido se cancela la opracion completamente.
                         Console.WriteLine("Seguro deceas eliminar este alumno? (Y/N)");
                         string opcion = Validaciones.ValidarString(Console.ReadLine(), 1);
                         switch (opcion.ToUpper())
@@ -248,6 +272,11 @@ namespace GestionCursos
             }
         }
 
+
+        //metodo usado para conectar la interfaz con los metodos de ordenamiento del GestionadorDeAlumnos
+        //Ordena los alumnos segun el criterio o seleccion hecha.
+
+        //Luego de la seleccion muestra la lista completa de alumnos ordenada segun el criterio seleccionado.
         private static void InterfazOrdenarAlumnos(GestionAlumnos<Alumno> GestionadorAlumnos)
         {
             while (true)
@@ -260,7 +289,7 @@ namespace GestionCursos
                     $"3. Ordenar alumnos por promedio\n" +
                     $"4. [Salir] Volver al menu de alumnos");
 
-                int seleccion = Validaciones.ValidarInt(Console.ReadLine());
+                int seleccion = Validaciones.ValidarInt(Console.ReadLine()); //valida la seleccion
                 Console.Clear();
 
                 switch(seleccion)
@@ -290,6 +319,8 @@ namespace GestionCursos
             }
         }
 
+        //Filtra los alumnos segun el criterio seleccionado
+        //Luego muestra solo los alumnos que cumplen con dicho criterio.
         private static void InterfazFiltrarAlumnos(GestionAlumnos<Alumno> GestionadorAlumnos)
         {
             while (true)
