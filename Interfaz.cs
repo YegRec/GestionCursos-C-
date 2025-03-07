@@ -50,7 +50,35 @@ namespace GestionCursos
                     case 3:
                         Interfaz.InterfazAlumnoEliminar(GestionadorAlumnos);
                         break;
-                        
+                    case 4:
+                        Console.Clear();
+                        if (!GestionadorAlumnos.alumnos.Any())
+                        {
+                            throw new InvalidOperationException("No existen alumnos para mostrar");
+                        }
+
+                        GestionadorAlumnos.alumnos.ForEach(x => x.MostrarInformacion());
+                        Interfaz.Esperar();
+                        break;
+                    case 5:
+                        Console.Clear();
+                        if (!GestionadorAlumnos.alumnos.Any())
+                        {
+                            throw new InvalidOperationException("No existen alumnos para ordenar");
+                        }
+
+                        Interfaz.InterfazOrdenarAlumnos(GestionadorAlumnos);
+                        break;
+                    case 6:
+                        Console.Clear();
+
+                        if (!GestionadorAlumnos.alumnos.Any())
+                        {
+                            throw new InvalidOperationException("No existen alumnos para filtrar");
+                        }
+
+                        break;
+
                     default:
                         break;
                 }
@@ -211,6 +239,71 @@ namespace GestionCursos
             }
         }
 
+        private static void InterfazOrdenarAlumnos(GestionAlumnos<Alumno> GestionadorAlumnos)
+        {
+            while (true)
+            {
+                Console.Clear();
+                Console.WriteLine($"GESTION ALUMNOS\n\n\n" +
+                    $"Por favor selecciona una opcion:\n\n" +
+                    $"1. Ordenar alumnos por nombre\n" +
+                    $"2. Ordenar alumnos por edad\n" +
+                    $"3. Ordenar alumnos por promedio\n" +
+                    $"4. [Salir] Volver al menu de alumnos");
+
+                int seleccion = Validaciones.ValidarInt(Console.ReadLine());
+                Console.Clear();
+
+                switch(seleccion)
+                {
+                    case 1:
+                        Console.WriteLine("Ordenando alumnos por nombre:\n\n");
+                        GestionadorAlumnos.OrdenarAlumnos(x => x.Nombre);
+                        Interfaz.Esperar();
+                        break;
+                    case 2:
+                        Console.WriteLine("Ordenando alumnos por edad:\n\n");
+                        GestionadorAlumnos.OrdenarAlumnos(x => x.Edad);
+                        Interfaz.Esperar();
+                        break;
+                    case 3:
+                        Console.WriteLine("Ordenando alumnos por promedio:\n\n");
+                        GestionadorAlumnos.OrdenarAlumnos(x => x.Promedio);
+                        Interfaz.Esperar();
+                        break;
+                }
+
+                if (seleccion == 4)
+                {
+                    break;
+                }
+
+            }
+        }
+
+        private static void InterfazFiltrarAlumnos(GestionAlumnos<Alumno> GestionadorAlumnos)
+        {
+            while (true)
+            {
+
+                Console.Clear();
+                Console.WriteLine($"GESTION ALUMNOS\n\n\n" +
+                    $"Por favor, selecciona una opcion:\n\n" +
+                    $"1. Filtrar alumnos por edad\n" +
+                    $"2. Filtrar alumnos por promedio\n" +
+                    $"3. [Salir] Volver al menu de alumnos\n");
+
+                int seleccion = Validaciones.ValidarInt(Console.ReadLine());
+
+                switch(seleccion)
+                {
+                    case 1:
+                        break;
+                        
+                }
+            }
+        }
+
         private static void InterfazCursos()
         {
             Console.Clear();
@@ -283,7 +376,7 @@ namespace GestionCursos
 
                 try
                 {
-                    int seleccion = Validaciones.ValidarInt(Console.ReadLine(), 3);
+                    int seleccion = Validaciones.ValidarInt(Console.ReadLine());
 
                     switch(seleccion)
                     {
