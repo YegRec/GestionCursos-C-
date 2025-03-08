@@ -360,25 +360,48 @@ namespace GestionCursos
             }
         }
 
-        private static void InterfazCursos()
+        private static void InterfazCursos(GestionCursos<Curso<Alumno>, Alumno> GestionadorDeCursos)
         {
-            Console.Clear();
-            Console.WriteLine($"GESTION DE CURSOS\n\n\n" +
-                $"Por favor, selecciona una opcion\n\n" +
-                $"1. Agregar curso\n" +
-                $"2. Buscar curso\n" +
-                $"3. Eliminar curso\n" +
-                $"4. Mostrar todos los cursos\n" +
-                $"5. Cargar cursos por JSON\n" +
-                $"6. Guardar cursos por JSON\n" +
-                $"7. [Salir] Volver al menu principal\n");
+            while (true)
+            {
+                Console.Clear();
+                Console.WriteLine($"GESTION DE CURSOS\n\n\n" +
+                    $"Por favor, selecciona una opcion\n\n" +
+                    $"1. Agregar curso\n" +
+                    $"2. Buscar curso\n" +
+                    $"3. Eliminar curso\n" +
+                    $"4. Mostrar todos los cursos\n" +
+                    $"5. Cargar cursos por JSON\n" +
+                    $"6. Guardar cursos por JSON\n" +
+                    $"7. [Salir] Volver al menu principal\n");
+
+                int seleccion = Validaciones.ValidarInt(Console.ReadLine());
+
+                switch(seleccion)
+                {
+                    case 1:
+                        Console.Clear();
+                        Interfaz.InterfazCrearCurso(GestionadorDeCursos);
+                        Interfaz.Esperar();
+                        break;
+                    case 2:
+                        break;
+
+                }
+
+                if (seleccion == 7)
+                {
+                    break;
+                }
+                //fin switch
+            }
         }
 
         private static void InterfazCrearCurso(GestionCursos<Curso<Alumno>, Alumno> GestionadorDeCursos)
         {
             Console.Clear();
             Console.WriteLine("Por favor ingresa el nombre del curso\n");
-            string nombreCurso = Validaciones.ValidarString(Console.ReadLine(), 3);
+            string nombreCurso = Validaciones.ValidarString(Console.ReadLine(), 20);
 
             if (GestionadorDeCursos.cursos.Exists(x => x.Nombre == nombreCurso))
             {
@@ -395,7 +418,8 @@ namespace GestionCursos
 
             Curso<Alumno> NuevoCurso = new Curso<Alumno>(nombreCurso, nombreProfesor, limite);
             GestionadorDeCursos.AgregarCurso(NuevoCurso);
-            Console.WriteLine($"EL curso {nombreCurso} fue creado con exito");
+            Console.Clear();
+            Console.WriteLine($"EL curso {nombreCurso} fue creado con exito\n");
             NuevoCurso.MostrarInformacion();
 
         }
@@ -438,6 +462,9 @@ namespace GestionCursos
                     {
                         case 1:
                             Interfaz.InterfazAlumnos(GestionadorAlumnos);
+                            break;
+                        case 2:
+                            Interfaz.InterfazCursos(GestionadorCursos);
                             break;
 
 
