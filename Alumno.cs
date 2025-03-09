@@ -71,7 +71,7 @@ namespace GestionCursos
         //La funcion de este metodo es reiniciar la matricula del alumno. Ya que puede darse el caso de que el alumno
         //Decee seleccionar otro curso, en ese caso se deberia asignar una nueva matricula la cual se modificara
         //Dependiendo del nuevo curso que seleccione el alumno.
-        public void RemoverCurso(string curso)
+        public void RemoverCurso()
         {
             CursoAsignado = string.Empty;
             Matricula = string.Empty;

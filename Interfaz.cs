@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using static GestionCursos.GestionAlumnos<GestionCursos.Alumno>;
@@ -500,6 +501,9 @@ namespace GestionCursos
                     case "3":
                         Interfaz.InterfazInscribirAlumno(Curso, GestionadorAlumnos);
                         break;
+                    case "4":
+                        Interfaz.InterfazEliminarAlumnoDeCurso(Curso);
+                        break;
                 }
 
                 if (seleccion == "8")
@@ -583,9 +587,47 @@ namespace GestionCursos
             }
 
             Interfaz.Esperar();
+        }
 
+        private static void InterfazEliminarAlumnoDeCurso(Curso<Alumno> Curso)
+        {
+            Console.Clear();
+            Console.WriteLine("GESTIONAR CURSO\n\n\n" +
+                "Por favor, ingresa el nombre del alumno\n");
 
+            string nombreAlumno = Validaciones.ValidarNombre(Console.ReadLine());
 
+            if (Curso.ListaAlumnos.Exists(x => x.Nombre.ToLower() == nombreAlumno.ToLower()))
+            {
+                Console.Clear();
+                Console.WriteLine("Alumno encontrado:\n");
+                var nuevoalumno = Curso.ListaAlumnos.Find(x => x.Nombre.ToLower() == nombreAlumno.ToLower());
+                nuevoalumno.MostrarInformacion();
+
+                Console.WriteLine("\nSeguro deceas eliminar este alumno del curso? (Y/N)\n");
+
+                string seleccion = Validaciones.ValidarString(Console.ReadLine());
+
+                switch(seleccion.ToLower())
+                {
+                    case "y":
+                        Curso.EliminarAlumno(nuevoalumno);
+                        nuevoalumno.RemoverCurso();
+                        Console.WriteLine("Alumno eliminado con exito");
+                        break;
+                    case "n":
+                        Console.WriteLine("Cancelando operacion...");
+                        break;
+                    default:
+                        Console.WriteLine("Seleccion incorrecta, cancelando operacion...");
+                        break;                         
+                }
+            }
+            else
+            {
+                Console.WriteLine($"El alumno {nombreAlumno} no se encuentra en este curso o no existe");
+            }
+            Interfaz.Esperar();
         }
 
         public static void Esperar()
