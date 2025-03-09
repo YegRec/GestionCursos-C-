@@ -454,11 +454,18 @@ namespace GestionCursos
                 {
                     case "y":
                         Interfaz.InterfazAdministrarCurso(Curso, GestionadorAlumnos);
+                        seleccion = "salir.while";
                         break;
                     case "n":
                         Console.WriteLine("Cancelando operacion...");
+                        seleccion = "salir.while";
                         Interfaz.Esperar();
                         break;
+                }
+
+                if (seleccion == "salir.while")
+                {
+                    break;
                 }
             }
         }
