@@ -43,20 +43,20 @@ namespace GestionCursos
                     $"7. Cargar Alumnos por JSON\n" +
                     $"8. Guardar Alumnos por JSON\n" +
                     $"9. [Salir] Volver al menu principal\n");
-                int seleccion = Validaciones.ValidarInt(Console.ReadLine());
+                string seleccion = Validaciones.ValidarString(Console.ReadLine());
 
                 switch (seleccion)
                 {
-                    case 1:
+                    case "1":
                         Interfaz.InterfazCrearAlummo(GestionadorAlumnos);
                         break;
-                    case 2:
+                    case "2":
                         Interfaz.InterfazAlumnosBuscar(GestionadorAlumnos);
                         break;
-                    case 3:
+                    case "3":
                         Interfaz.InterfazAlumnoEliminar(GestionadorAlumnos);
                         break;
-                    case 4:
+                    case "4":
                         Console.Clear();
                         if (!GestionadorAlumnos.alumnos.Any())
                         {
@@ -66,7 +66,7 @@ namespace GestionCursos
                         GestionadorAlumnos.alumnos.ForEach(x => x.MostrarInformacion());
                         Interfaz.Esperar();
                         break;
-                    case 5:
+                    case "5":
                         Console.Clear();
                         if (!GestionadorAlumnos.alumnos.Any())
                         {
@@ -75,7 +75,7 @@ namespace GestionCursos
 
                         Interfaz.InterfazOrdenarAlumnos(GestionadorAlumnos);
                         break;
-                    case 6:
+                    case "6":
                         Console.Clear();
 
                         if (!GestionadorAlumnos.alumnos.Any())
@@ -85,11 +85,11 @@ namespace GestionCursos
 
                         Interfaz.InterfazFiltrarAlumnos(GestionadorAlumnos);
                         break;
-                    case 7:
+                    case "7":
                         GestionadorAlumnos.CargarDatosJSON();
                         Interfaz.Esperar();
                         break;
-                    case 8:
+                    case "8":
                         GestionadorAlumnos.GuardarDatosJSON();
                         Interfaz.Esperar();
                         break;
@@ -98,7 +98,7 @@ namespace GestionCursos
                         break;
                 }
 
-                if (seleccion == 9)
+                if (seleccion == "9")
                 {
                     break;
                 }
@@ -153,18 +153,18 @@ namespace GestionCursos
                     "1. Buscar Alumno por nombre\n" +
                     "2. Buscar Alumno por matricula\n" +
                     "3. [Salir] Volver al menu de alumnos\n");
-                int seleccion = Validaciones.ValidarInt(Console.ReadLine());
+                string seleccion = Validaciones.ValidarString(Console.ReadLine());
 
                 switch (seleccion)
                 {
-                    case 1:
+                    case "1":
                         Console.Clear();
                         Console.WriteLine("Por favor ingresa el nombre del estudiante");
                         string nombre = Validaciones.ValidarNombre(Console.ReadLine());
                         GestionadorAlumnos.BuscarAlumnoPorNombre(nombre);
                         Interfaz.Esperar();
                         break;
-                    case 2:
+                    case "2":
                         Console.Clear();
                         Console.WriteLine("Por favor ingresa la matricula del estudiante");
                         string matricula = Validaciones.ValidarString(Console.ReadLine(), 12);
@@ -175,7 +175,7 @@ namespace GestionCursos
                         break;
                 }
 
-                if (seleccion == 3)
+                if (seleccion == "3")
                 {
                     break;
                 }
@@ -197,11 +197,11 @@ namespace GestionCursos
                     "2. Eliminar Alumno por matricula\n" +
                     "3. [Salir] Volver al menu de alumnos\n");
 
-                int seleccion = Validaciones.ValidarInt(Console.ReadLine()); // Valor usado para la seleccion
+                string seleccion = Validaciones.ValidarString(Console.ReadLine()); // Valor usado para la seleccion
 
                 switch(seleccion)
                 {
-                    case 1:
+                    case "1":
                         Console.Clear();
                         Console.WriteLine("Por favor, ingresa el nombre del alumno a eliminar");
                         string nombre = Validaciones.ValidarNombre(Console.ReadLine()); //Solicita y verifica el input del usuario.
@@ -232,7 +232,7 @@ namespace GestionCursos
                                 break;
                         }
                         break;
-                    case 2:
+                    case "2":
                         Console.Clear();
                         Console.WriteLine("Por favor, ingresa la matricula del alumno a eliminar");
                         string matricula = Validaciones.ValidarString(Console.ReadLine());
@@ -260,10 +260,10 @@ namespace GestionCursos
                                 break;
                         }
                         break;
-                        case 3:
+                        case "3":
                         break;
                 }
-                if (seleccion == 3)
+                if (seleccion == "3")
                 {
                     break;
                 }
@@ -289,29 +289,29 @@ namespace GestionCursos
                     $"3. Ordenar alumnos por promedio\n" +
                     $"4. [Salir] Volver al menu de alumnos");
 
-                int seleccion = Validaciones.ValidarInt(Console.ReadLine()); //valida la seleccion
+                string seleccion = Validaciones.ValidarString(Console.ReadLine()); //valida la seleccion
                 Console.Clear();
 
                 switch(seleccion)
                 {
-                    case 1:
+                    case "1":
                         Console.WriteLine("Ordenando alumnos por nombre:\n\n");
                         GestionadorAlumnos.OrdenarAlumnos(x => x.Nombre);
                         Interfaz.Esperar();
                         break;
-                    case 2:
+                    case "2":
                         Console.WriteLine("Ordenando alumnos por edad:\n\n");
                         GestionadorAlumnos.OrdenarAlumnos(x => x.Edad);
                         Interfaz.Esperar();
                         break;
-                    case 3:
+                    case "3":
                         Console.WriteLine("Ordenando alumnos por promedio:\n\n");
                         GestionadorAlumnos.OrdenarAlumnos(x => x.Promedio);
                         Interfaz.Esperar();
                         break;
                 }
 
-                if (seleccion == 4)
+                if (seleccion == "4")
                 {
                     break;
                 }
@@ -333,18 +333,18 @@ namespace GestionCursos
                     $"2. Filtrar alumnos por promedio\n" +
                     $"3. [Salir] Volver al menu de alumnos\n");
 
-                int seleccion = Validaciones.ValidarInt(Console.ReadLine());
+                string seleccion = Validaciones.ValidarString(Console.ReadLine());
 
                 switch(seleccion)
                 {
-                    case 1:
+                    case "1":
                         Console.Clear();
                         Console.WriteLine("Ingresa la edad a filtrar (mayor que)");
                         int readResult = Validaciones.ValidarInt(Console.ReadLine());
                         GestionadorAlumnos.FiltrarAlumnos(x => x.Edad > readResult);
                         Interfaz.Esperar();
                         break;
-                    case 2:
+                    case "2":
                         Console.Clear();
                         Console.WriteLine("Ingresa el promedio a filtrar (menor que) (valor maximo: 10)");
                         int readResult2 = Validaciones.ValidarInt(Console.ReadLine(), 10);
@@ -353,7 +353,7 @@ namespace GestionCursos
                         break;                        
                 }
 
-                if (seleccion == 3)
+                if (seleccion == "3")
                 {
                     break;
                 }
@@ -375,21 +375,22 @@ namespace GestionCursos
                     $"6. Guardar cursos por JSON\n" +
                     $"7. [Salir] Volver al menu principal\n");
 
-                int seleccion = Validaciones.ValidarInt(Console.ReadLine());
+                string seleccion = Validaciones.ValidarString(Console.ReadLine());
 
                 switch(seleccion)
                 {
-                    case 1:
+                    case "1":
                         Console.Clear();
                         Interfaz.InterfazCrearCurso(GestionadorDeCursos);
                         Interfaz.Esperar();
                         break;
-                    case 2:
+                    case "2":
+                        Interfaz.BuscarCurso(GestionadorDeCursos);
                         break;
 
                 }
 
-                if (seleccion == 7)
+                if (seleccion == "7")
                 {
                     break;
                 }
@@ -424,18 +425,104 @@ namespace GestionCursos
 
         }
 
-        private static void InterfazCursosBuscar()
+        private static void BuscarCurso(GestionCursos<Curso<Alumno>, Alumno> GestionadorDeCursos)
         {
+            while (true)
+            {
+                Console.Clear();
+                Console.WriteLine($"GESTION DE CURSOS\n\n\n" +
+                    $"Por favor, ingresa el nombre del curso\n");
+
+                string NombreCurso = Validaciones.ValidarString(Console.ReadLine());
+
+                if (!GestionadorDeCursos.cursos.Exists(x => x.Nombre.ToLower() == NombreCurso.ToLower()))
+                {
+                    throw new ArgumentNullException($"No existe un curso llamado {NombreCurso}");
+                }
+
+                Console.Clear();
+                Console.WriteLine($"Curso encontrado:\n");
+
+                var Curso = GestionadorDeCursos.cursos.Find(x => x.Nombre.ToLower() == NombreCurso.ToLower());
+                Curso.MostrarInformacion();
+
+                Console.WriteLine($"Deceas administrar el curso? (Y/N)\n");
+
+                string seleccion = Validaciones.ValidarString(Console.ReadLine());
+
+                switch(seleccion.ToLower())
+                {
+                    case "y":
+                        Interfaz.InterfazAdministrarCurso(Curso);
+                        break;
+                    case "n":
+                        Console.WriteLine("Cancelando operacion...");
+                        Interfaz.Esperar();
+                        break;
+                }
+            }
+        }
+
+        private static void InterfazAdministrarCurso(Curso<Alumno> Curso)
+        {
+            while (true)
+            {
+                Console.Clear();
+                Console.WriteLine($"GESTION DE CURSOS\n\n\n" +
+                    $"Por favor, selecciona una opcion:\n\n" +
+                    $"1. Cambiar profesor\n" +
+                    $"2. Ver alumnos del curso\n" +
+                    $"3. Inscribir alumno al curso\n" +
+                    $"4. Eliminar alumno del curso\n" +
+                    $"5. Obtener promedio de alumno\n" +
+                    $"6. Asignar promedio a alumno\n" +
+                    $"7. Obtener promedio de todos los alumnos\n" +
+                    $"8. [Salir] menu de cursos");
+
+                string seleccion = Validaciones.ValidarString(Console.ReadLine());
+
+                switch(seleccion)
+                {
+                    case "1":
+                        Interfaz.InterfazCambioProfesor(Curso);
+                        break;
+                }
+
+                if (seleccion == "8")
+                {
+                    break;
+                }
+            }
+
+        }
+
+        private static void InterfazCambioProfesor(Curso<Alumno> Curso)
+        {
+            Console.Clear();
             Console.WriteLine($"GESTION DE CURSOS\n\n\n" +
-                $"Por favor, selecciona una opcion:\n\n" +
-                $"1. Cambiar profesor\n" +
-                $"2. Ver alumnos del curso\n" +
-                $"3. Inscribir alumno al curso\n" +
-                $"4. Eliminar alumno del curso\n" +
-                $"5. Obtener promedio de alumno\n" +
-                $"6. Asignar promedio a alumno\n" +
-                $"7. Obtener promedio de todos los alumnos\n" +
-                $"8. [Salir] menu de cursos");            
+                $"Por favor, ingresa el nombre del nuevo profesor");
+
+            string nuevoNombre = Validaciones.ValidarNombre(Console.ReadLine());
+
+
+            Console.Clear();
+            Console.WriteLine($"GESTION DE CURSOS\n\n\n" +
+                $"Esta seguro que deceas reemplazar a {Curso.Profesor} por {nuevoNombre}? (Y/N)\n");
+
+            string seleccion = Validaciones.ValidarString(Console.ReadLine());
+
+            switch(seleccion.ToLower())
+            {
+                case "y":
+                    Curso.CambiarProfesor(nuevoNombre);
+                    Interfaz.Esperar();
+                    break;
+                case "n":
+                    Console.WriteLine("Operacion cancelada...");
+                    Interfaz.Esperar();
+                    break;
+            }
+
 
         }
 
