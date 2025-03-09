@@ -360,7 +360,7 @@ namespace GestionCursos
             }
         }
 
-        private static void InterfazCursos(GestionCursos<Curso<Alumno>, Alumno> GestionadorDeCursos)
+        private static void InterfazCursos(GestionCursos<Curso<Alumno>, Alumno> GestionadorDeCursos, GestionAlumnos<Alumno> GestionadorAlumnos)
         {
             while (true)
             {
@@ -385,7 +385,7 @@ namespace GestionCursos
                         Interfaz.Esperar();
                         break;
                     case "2":
-                        Interfaz.BuscarCurso(GestionadorDeCursos);
+                        Interfaz.BuscarCurso(GestionadorDeCursos, GestionadorAlumnos);
                         break;
 
                 }
@@ -425,7 +425,7 @@ namespace GestionCursos
 
         }
 
-        private static void BuscarCurso(GestionCursos<Curso<Alumno>, Alumno> GestionadorDeCursos)
+        private static void BuscarCurso(GestionCursos<Curso<Alumno>, Alumno> GestionadorDeCursos, GestionAlumnos<Alumno> GestionadorAlumnos)
         {
             while (true)
             {
@@ -453,7 +453,7 @@ namespace GestionCursos
                 switch(seleccion.ToLower())
                 {
                     case "y":
-                        Interfaz.InterfazAdministrarCurso(Curso);
+                        Interfaz.InterfazAdministrarCurso(Curso, GestionadorAlumnos);
                         break;
                     case "n":
                         Console.WriteLine("Cancelando operacion...");
@@ -463,7 +463,7 @@ namespace GestionCursos
             }
         }
 
-        private static void InterfazAdministrarCurso(Curso<Alumno> Curso)
+        private static void InterfazAdministrarCurso(Curso<Alumno> Curso, GestionAlumnos<Alumno> GestionadorAlumnos)
         {
             while (true)
             {
@@ -485,6 +485,13 @@ namespace GestionCursos
                 {
                     case "1":
                         Interfaz.InterfazCambioProfesor(Curso);
+                        break;
+                    case "2":
+                        Curso.VerAlumnosDelCurso();
+                        Interfaz.Esperar();
+                        break;
+                    case "3":
+                        Interfaz.InterfazInscribirAlumno(Curso, GestionadorAlumnos);
                         break;
                 }
 
@@ -523,6 +530,54 @@ namespace GestionCursos
                     break;
             }
 
+        }
+
+        private static void InterfazInscribirAlumno(Curso<Alumno> Curso, GestionAlumnos<Alumno> GestionadorAlumnos)
+        {
+            Console.Clear();
+            Console.WriteLine($"GESTION DE CURSOS\n\n\n" +
+                $"Por favor, ingresa el nombre del alumno\n");
+
+            string nombreAlumno = Validaciones.ValidarNombre(Console.ReadLine());
+
+            if (!GestionadorAlumnos.alumnos.Exists(x => x.Nombre.ToLower() == nombreAlumno.ToLower()))
+            {
+                throw new InvalidOperationException("El alumno ingresado no existe");
+            }
+
+            var Alumno = GestionadorAlumnos.alumnos.Find(x => x.Nombre.ToLower() == nombreAlumno.ToLower());
+
+            Console.Clear();
+            Console.WriteLine("Alumno encontrado:\n");
+            Alumno.MostrarInformacion();
+
+            if (!string.IsNullOrEmpty(Alumno.CursoAsignado))
+            {
+                Console.WriteLine($"\nEl alumno ya se encuentra en el curso: {Alumno.CursoAsignado}.\n" +
+                    $"por lo que no puede ser Incrito a {Curso.Nombre}");
+            }
+            else
+            {
+                Console.WriteLine("\nInscribir el alumno al curso? (Y/N)\n");
+                string seleccion = Validaciones.ValidarString(Console.ReadLine());
+
+                switch(seleccion.ToLower())
+                {
+                    case "y":
+                        Console.Clear();
+                        Curso.AgregarAlumno(Alumno);
+                        Console.WriteLine("Alumno agregado con exito\n");
+                        Alumno.MostrarInformacion();
+                        break;
+                    case "n":
+                        Console.WriteLine("Cancelando operacion...");
+                        break;
+                }                
+            }
+
+            Interfaz.Esperar();
+
+
 
         }
 
@@ -551,7 +606,7 @@ namespace GestionCursos
                             Interfaz.InterfazAlumnos(GestionadorAlumnos);
                             break;
                         case 2:
-                            Interfaz.InterfazCursos(GestionadorCursos);
+                            Interfaz.InterfazCursos(GestionadorCursos, GestionadorAlumnos);
                             break;
 
 
