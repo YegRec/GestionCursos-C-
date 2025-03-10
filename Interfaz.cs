@@ -361,6 +361,7 @@ namespace GestionCursos
             }
         }
 
+        //Interfaz de usuario encargada de manejar los cursos
         private static void InterfazCursos(GestionCursos<Curso<Alumno>, Alumno> GestionadorDeCursos, GestionAlumnos<Alumno> GestionadorAlumnos)
         {
             while (true)
@@ -412,8 +413,6 @@ namespace GestionCursos
                     case "6":
                         GestionadorDeCursos.GuardarCursosJSON();
                         break;
-
-
                 }
 
                 if (seleccion == "7")
@@ -424,6 +423,8 @@ namespace GestionCursos
             }
         }
 
+        //Metodo de interfaz para eliminar curso. Utiliza un gestionador de cursos y itera entre la lista de cursos
+        //para buscar el curso que el usuario haya escrito y confirmar para eliminarlo.
         private static void InterfazEliminarCurso(GestionCursos<Curso<Alumno>, Alumno> GestionadorDeCursos)
         {
             Console.Clear();
@@ -463,6 +464,10 @@ namespace GestionCursos
             Interfaz.Esperar();
         }
 
+
+        //Metodo de interfaz para crear un curso.
+        //Solicita al usuario nombre, profesor y cantidad de alumnos maximo del curso
+        //Usando la clase Validaciones para validar que los datos ingresados sean correctos
         private static void InterfazCrearCurso(GestionCursos<Curso<Alumno>, Alumno> GestionadorDeCursos)
         {
             Console.Clear();
@@ -490,6 +495,7 @@ namespace GestionCursos
 
         }
 
+        //Metodo de interfaz encargado de buscar un curso y administrarlo en caso de encontrarlo.
         private static void BuscarCurso(GestionCursos<Curso<Alumno>, Alumno> GestionadorDeCursos, GestionAlumnos<Alumno> GestionadorAlumnos)
         {
             while (true)
@@ -535,6 +541,8 @@ namespace GestionCursos
             }
         }
 
+
+        //Metodo de interfaz encargado de administrar un curso. Agregar, eliminar alumnos, asignar promedios etc...
         private static void InterfazAdministrarCurso(Curso<Alumno> Curso, GestionAlumnos<Alumno> GestionadorAlumnos)
         {
             while (true)
@@ -593,6 +601,7 @@ namespace GestionCursos
 
         }
 
+        //Metodo para cambiar profesor de un curso.
         private static void InterfazCambioProfesor(Curso<Alumno> Curso)
         {
             Console.Clear();
@@ -622,6 +631,8 @@ namespace GestionCursos
 
         }
 
+
+        //Metodo para inscribir un alumno al curso.
         private static void InterfazInscribirAlumno(Curso<Alumno> Curso, GestionAlumnos<Alumno> GestionadorAlumnos)
         {
             Console.Clear();
@@ -668,6 +679,7 @@ namespace GestionCursos
             Interfaz.Esperar();
         }
 
+        //Metodo para eliminar un alumno del curso
         private static void InterfazEliminarAlumnoDeCurso(Curso<Alumno> Curso)
         {
             Console.Clear();
@@ -709,6 +721,7 @@ namespace GestionCursos
             Interfaz.Esperar();
         }
 
+        //Metodo para asignar promedio a un alumno
         private static void InterfazAsignarPromedio(Curso<Alumno> Curso)
         {
             Console.Clear();
@@ -741,6 +754,7 @@ namespace GestionCursos
         }
 
 
+        //Metodo de espera, usado cuando se termina de ejecutar algun metodo.
         public static void Esperar()
         {
             Console.WriteLine("\nPresiona cualquier tecla para continuar");
