@@ -388,6 +388,31 @@ namespace GestionCursos
                     case "2":
                         Interfaz.BuscarCurso(GestionadorDeCursos, GestionadorAlumnos);
                         break;
+                    case "3":
+                        Interfaz.InterfazEliminarCurso(GestionadorDeCursos);
+                        break;
+                    case "4":
+                        if (!GestionadorDeCursos.cursos.Any())
+                        {
+                            Console.Clear();
+                            Console.WriteLine("GESTION DE CURSOS\n\n\n" +
+                                "No existe ningun curso para mostrar.");
+                        }
+                        else
+                        {
+                            Console.Clear();
+                            GestionadorDeCursos.cursos.ForEach(x => x.MostrarInformacion());
+
+                        }
+                        Interfaz.Esperar();
+                        break;
+                    case "5":
+                        GestionadorDeCursos.CargarCursosJSON();
+                        break;
+                    case "6":
+                        GestionadorDeCursos.GuardarCursosJSON();
+                        break;
+
 
                 }
 
@@ -397,6 +422,45 @@ namespace GestionCursos
                 }
                 //fin switch
             }
+        }
+
+        private static void InterfazEliminarCurso(GestionCursos<Curso<Alumno>, Alumno> GestionadorDeCursos)
+        {
+            Console.Clear();
+            Console.WriteLine("GESTION DE CURSOS\n\n\n" +
+                "Por favor, ingresa el nombre del curso a eliminar");
+
+            string nombre = Validaciones.ValidarString(Console.ReadLine());
+
+            var Curso = GestionadorDeCursos.cursos.Find(x => x.Nombre.ToLower() == nombre.ToLower());
+
+            if (Curso == null)
+            {
+                throw new InvalidOperationException("\nEL curso no existe");
+            }
+
+            Console.Clear();
+            Console.WriteLine($"Curso encontrado:\n");
+            Curso.MostrarInformacion();
+
+            Console.WriteLine("Seguro deceas eliminar este curso? (Y/N)");
+            string seleccion = Validaciones.ValidarString(Console.ReadLine());
+
+            switch(seleccion.ToLower())
+            {
+                case "y":
+                    GestionadorDeCursos.EliminarCurso(Curso);
+                    Console.WriteLine("El curso ha sido eliminado con exito.");
+                    break;
+                case "n":
+                    Console.WriteLine("Cancelando operacion...");
+                    break;
+                default:
+                    Console.WriteLine("Seleccion incorrecta. Cancelando operacion...");
+                    break;
+            }
+
+            Interfaz.Esperar();
         }
 
         private static void InterfazCrearCurso(GestionCursos<Curso<Alumno>, Alumno> GestionadorDeCursos)
