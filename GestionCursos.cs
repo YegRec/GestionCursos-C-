@@ -25,6 +25,7 @@ namespace GestionCursos
         public void EliminarCurso(TCurso curso)
         {
             cursos.Remove(curso);
+            Interfaz.Guardados = false;
         }
 
         public void InscribirAlumno(TCurso curso, TAlumno alumno)

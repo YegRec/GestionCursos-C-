@@ -11,6 +11,11 @@ namespace GestionCursos
 {
     internal static class Interfaz
     {
+        //Este bool se usa para controlar el guardado/cargado de archivos. Dado que no se decea poder cargar cursos
+        //Sin antes cargar los alumnos.
+        public static bool Cargados = false;
+        public static bool Guardados = false;
+
         private static string Version = "1.0";
 
         //Interfaz menu principal.
@@ -87,11 +92,27 @@ namespace GestionCursos
                         Interfaz.InterfazFiltrarAlumnos(GestionadorAlumnos);
                         break;
                     case "7":
-                        GestionadorAlumnos.CargarDatosJSON();
+                        if (!Cargados)
+                        {
+                            GestionadorAlumnos.CargarDatosJSON();
+                            Cargados = true;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Los alumnos ya han sido cargados...");
+                        }
                         Interfaz.Esperar();
                         break;
                     case "8":
-                        GestionadorAlumnos.GuardarDatosJSON();
+                        if (!Guardados)
+                        {
+                            GestionadorAlumnos.GuardarDatosJSON();
+                            Guardados = true;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Los alumnos ya han sido Guardados...");
+                        }
                         Interfaz.Esperar();
                         break;
 
@@ -408,10 +429,26 @@ namespace GestionCursos
                         Interfaz.Esperar();
                         break;
                     case "5":
-                        GestionadorDeCursos.CargarCursosJSON();
+                        if (Cargados == true)
+                        {
+                            GestionadorDeCursos.CargarCursosJSON();
+                        }
+                        else
+                        {
+                            Console.WriteLine("Es necesario cargar los alumnos antes de cargar los cursos.");
+                        }
+                        Interfaz.Esperar();
                         break;
                     case "6":
-                        GestionadorDeCursos.GuardarCursosJSON();
+                        if (Guardados == true)
+                        {
+                            GestionadorDeCursos.GuardarCursosJSON();
+                        }
+                        else
+                        {
+                            Console.WriteLine("Es necesario guardar los alumnos antes de guardar los cursos");
+                        }
+                        Interfaz.Esperar();
                         break;
                 }
 

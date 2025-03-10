@@ -21,6 +21,7 @@ namespace GestionCursos
         public void AgregarAlumno(T alumno)
         {
             alumnos.Add(alumno);
+            Interfaz.Guardados = false;
         }
 
         public void BuscarAlumnoPorNombre(string nombre)
