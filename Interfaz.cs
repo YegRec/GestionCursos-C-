@@ -482,10 +482,9 @@ namespace GestionCursos
                     $"2. Ver alumnos del curso\n" +
                     $"3. Inscribir alumno al curso\n" +
                     $"4. Eliminar alumno del curso\n" +
-                    $"5. Obtener promedio de alumno\n" +
-                    $"6. Asignar promedio a alumno\n" +
-                    $"7. Obtener promedio de todos los alumnos\n" +
-                    $"8. [Salir] menu de cursos");
+                    $"5. Asignar promedio a alumno\n" +
+                    $"6. Obtener promedio de todos los alumnos\n" +
+                    $"7. [Salir] menu de cursos");
 
                 string seleccion = Validaciones.ValidarString(Console.ReadLine());
 
@@ -504,9 +503,25 @@ namespace GestionCursos
                     case "4":
                         Interfaz.InterfazEliminarAlumnoDeCurso(Curso);
                         break;
+                    case "5":
+                        Interfaz.InterfazAsignarPromedio(Curso);
+                        break;
+                    case "6":
+                        Console.Clear();
+                        Console.WriteLine("GESTION DE CURSOS\n\n\n");
+                        if (Curso.ListaAlumnos.Any())
+                        {
+                            Console.WriteLine($"El promedio de los alumnos es: {(Curso.ListaAlumnos.Sum(x => x.Promedio) / Curso.ListaAlumnos.Count)}");
+                        }
+                        else
+                        {
+                            Console.WriteLine("No hay alumnos inscritos en el curso...");
+                        }
+                        Interfaz.Esperar();
+                        break;
                 }
 
-                if (seleccion == "8")
+                if (seleccion == "7")
                 {
                     break;
                 }
@@ -629,6 +644,38 @@ namespace GestionCursos
             }
             Interfaz.Esperar();
         }
+
+        private static void InterfazAsignarPromedio(Curso<Alumno> Curso)
+        {
+            Console.Clear();
+            Console.WriteLine("GESTION DE CURSOS\n\n\n" +
+                "Por favor, ingresa la matricula del alumno");
+
+            string matricula = Validaciones.ValidarString(Console.ReadLine());
+
+            var Alumno = Curso.ListaAlumnos.Find(x => x.Matricula.ToUpper() == matricula.ToUpper());
+
+            if (Alumno == null)
+            {
+                throw new InvalidOperationException($"El alumno con la matricula {matricula} no existe");
+            }
+
+            Console.Clear();
+            Console.WriteLine("Alumno encontrado:\n");
+            Alumno.MostrarInformacion();
+
+            Console.WriteLine("Ingresa el promedo del alumno\n");
+            double promedio = Validaciones.ValidarDouble(Console.ReadLine());
+
+            Alumno.AsignarPromedio(promedio);
+            Console.Clear();
+            Console.WriteLine($"Se actualizo el promedio de {Alumno.Matricula.ToUpper()} con exito\n");
+
+            Alumno.MostrarInformacion();
+            Interfaz.Esperar();
+
+        }
+
 
         public static void Esperar()
         {
